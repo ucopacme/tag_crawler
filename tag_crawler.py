@@ -29,31 +29,24 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 @click.command(context_settings=CONTEXT_SETTINGS)
 @click.option('--role', '-r',
     required=True,
-    help='IAM role for accessing AWS Organization accounts',
-)
+    help='IAM role for accessing AWS Organization accounts')
 @click.option('--resource-filter', '-rf', 'resource_filter',
     multiple=True,
-    help='AWS resource name to filter by. Can be used multiple times.',
-)
+    help='AWS resource name to filter by. Can be used multiple times.')
 @click.option('--tag-filter', '-tf', 'tag_filter',
     multiple=True,
     help='Tag to filter by. Can be used multiple times. Must be a string. '
     'Can be either a key name or a key/value pair saparated by a comma. '
-    'Tags containing spaces must be quoted.',
-)
+    'Tags containing spaces must be quoted.')
 @click.option('--show-resource-only',
     is_flag=True,
-    help='Display only the ARN of matching resources.',
-)
+    help='Display only the ARN of matching resources.')
 @click.option('--show-keys-only',
     is_flag=True,
-    help='Display only tag key names.',
-)
+    help='Display only tag key names.')
 def cli(role, tag_filter, resource_filter, show_resource_only, show_keys_only):
-    #click.echo(tag_filter)
-    #click.echo(resource_filter)
     filters = parse_filters(tag_filter, resource_filter)
-    #click.echo(utils.yamlfmt(filters))
+    # click.echo(utils.yamlfmt(filters))
     crawler = get_crawler(role)
     if show_keys_only:
         execution = crawler.execute(get_tag_keys)
@@ -154,9 +147,9 @@ def output_regions_per_account(execution):
     for account_name in account_names:
         d = dict(
             Account=account_name,
-            Regions=[{r.region: r.payload_output}
-                for r in responses
-                if r.account.name == account_name
+            Regions=[
+                {r.region: r.payload_output} for r in responses if
+                r.account.name == account_name
             ]
         )
         collector.append(d)
@@ -169,9 +162,9 @@ def purge_empty_responses(execution):
     Expects each response to be a list of dict.
     '''
     responses = [
-        r for r in execution.responses 
-        if len(r.payload_output) == 1
-        and list() not in r.payload_output.values()
+        r for r in execution.responses if
+        len(r.payload_output) == 1 and
+        list() not in r.payload_output.values()
     ]
     return responses
 
