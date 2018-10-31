@@ -35,27 +35,28 @@ Usage
 
 collect all taggable resources and thier tags for all accounts and regions::
 
-  (python3.6) agould@horus:~> tag_crawler -r awsauth/OrgAdmin
+  tag_crawler -r awsauth/OrgAdmin
 
 collect just taggable resource arn::
 
-  (python3.6) agould@horus:~> tag_crawler -r awsauth/OrgAdmin --show-resource-only
+  tag_crawler -r awsauth/OrgAdmin --show-resource-only
 
 just tag keys only::
 
-  (python3.6) agould@horus:~> tag_crawler -r awsauth/OrgAdmin --show-keys-only
+  tag_crawler -r awsauth/OrgAdmin --show-keys-only
 
 filter by resource name::
 
-  (python3.6) agould@horus:~> tag_crawler -r awsauth/OrgAdmin --resource-filter ec2:instance
+  tag_crawler -r awsauth/OrgAdmin --resource-filter ec2:instance
 
 filter by tag::
 
-(python3.6) agould@horus:~> tag_crawler -r awsauth/OrgAdmin --tag-filter env,prod
+  tag_crawler -r awsauth/OrgAdmin --tag-filter env,prod
 
 multiple filters are `ANDed`::
 
-(python3.6) agould@horus:~> tag_crawler -r awsauth/OrgAdmin -rf ec2 -tf env,poc -tf aws:cloudformation:stack-id
+  tag_crawler -r awsauth/OrgAdmin -rf ec2 -tf env,poc -tf aws:cloudformation:stack-id
+  tag_crawler -r awsauth/OrgAdmin  --tag-filter ucop:environment
 
 
 
